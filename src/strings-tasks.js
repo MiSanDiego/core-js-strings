@@ -38,8 +38,9 @@ function getStringLength(value) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (typeof value === 'string' || value instanceof String) return true;
+  return false;
 }
 
 /**
@@ -469,8 +470,24 @@ function extractEmails(str) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const strArr = str.split(' ');
+  const arr1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  const arr2 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
+  const resultArr = strArr
+    .map((word) => {
+      const splittedWord = word.split('');
+      const decoded = splittedWord
+        .map((letter) => {
+          const index = arr1.indexOf(letter);
+          const codedLetter = index >= 0 ? arr2[index] : letter;
+          return codedLetter;
+        })
+        .join('');
+      return decoded;
+    })
+    .join(' ');
+  return resultArr;
 }
 
 /**
